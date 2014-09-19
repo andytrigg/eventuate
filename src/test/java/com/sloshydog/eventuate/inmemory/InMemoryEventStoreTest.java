@@ -24,7 +24,7 @@ public class InMemoryEventStoreTest {
 
         when(eventSpecification.matches(newEvent)).thenReturn(true);
 
-        InMemoryEventStore eventStore = new InMemoryEventStore();
+        EventStore eventStore = new InMemoryEventStore();
         EventStream eventStream = eventStore.getMatching(eventSpecification);
         assertThat(eventStream).isEmpty();
     }
@@ -36,7 +36,7 @@ public class InMemoryEventStoreTest {
 
         when(eventSpecification.matches(newEvent)).thenReturn(true);
 
-        InMemoryEventStore eventStore = new InMemoryEventStore();
+        EventStore eventStore = new InMemoryEventStore();
         eventStore.store(newEvent);
 
         EventStream eventStream = eventStore.getMatching(eventSpecification);

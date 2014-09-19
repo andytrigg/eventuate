@@ -38,7 +38,7 @@ public class InMemoryEventStore implements EventStore {
         }
 
         @Override
-        public boolean apply(Event event) {
+        public boolean apply(final Event event) {
             return eventSpecification.matches(event);
         }
     }
