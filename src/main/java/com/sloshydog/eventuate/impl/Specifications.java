@@ -12,4 +12,8 @@ public class Specifications {
     public static EventSpecification any() {
         return ANY_SPECIFICATION;
     }
+
+    public static EventSpecification aggregateTypeMatching(String aggregateType) {
+        return new AggregateTypeSpecification(aggregateType);
+    }
 }
