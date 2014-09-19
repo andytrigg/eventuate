@@ -2,7 +2,7 @@ package com.sloshydog.eventuate.impl;
 
 import com.sloshydog.eventuate.api.Event;
 import com.sloshydog.eventuate.api.EventSpecification;
-
+// testing project setup
 public class AggregateTypeSpecification implements EventSpecification {
 
     private final String aggregateType;
