@@ -2,7 +2,7 @@ package com.sloshydog.eventuate.api;
 
 public interface Event {
 
-    String getGuid();
+    String getIdentifier();
 
     String getAggregateType();
 
