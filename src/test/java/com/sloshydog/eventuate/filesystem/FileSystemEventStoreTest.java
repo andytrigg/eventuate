@@ -20,6 +20,12 @@ public class FileSystemEventStoreTest {
         assertThat(EventStore.class).isAssignableFrom(FileSystemEventStore.class);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowAnExceptionWhenTheEventIsNull() {
+        EventStore eventStore = new FileSystemEventStore(System.getProperty("java.io.tmpdir"));
+        eventStore.store(null);
+    }
+
     @Test
     public void shouldBeAbleToStoreAnEventToTheFileSystem() throws IOException {
         Event newEvent = mock(Event.class);
@@ -42,4 +48,19 @@ public class FileSystemEventStoreTest {
             }
         }
     }
+
+//    @Test()
+//    public void shouldBeAbleToReadAnEventForTheStore() {
+//        Event newEvent = mock(Event.class);
+//        when(newEvent.getIdentifier()).thenReturn("123");
+//        when(newEvent.getAggregateType()).thenReturn("type");
+//
+//        when(newEvent.getPayload()).thenReturn("Events payload");
+//
+//        EventStore eventStore = new FileSystemEventStore(System.getProperty("java.io.tmpdir"));
+//        eventStore.store(newEvent);
+//
+//        EventStream events = eventStore.getMatching(new EventSpecification("123", "type"));
+//        assertThat(events.iterator()).extracting("identifier").containsExactly("123");
+//    }
 }
