@@ -33,10 +33,8 @@ page at http://checkstyle.sourceforge.net/config.html -->
                   value='All TODOs should be named.  e.g. "TODO(johndoe): Refactor when v2 is released."'/>
     </module>
 
-    <!--<module name="JavadocPackage">-->
-    <!--&lt;!&ndash; Checks that each Java package has a Javadoc file used for commenting.-->
-    <!--Only allows a package-info.java, not package.html. &ndash;&gt;-->
-    <!--</module>-->
+    <module name="JavadocPackage">
+    </module>
 
     <!-- All Java AST specific tests live under TreeWalker module. -->
     <module name="TreeWalker">
