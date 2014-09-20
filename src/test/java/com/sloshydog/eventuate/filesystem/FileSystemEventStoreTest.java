@@ -39,7 +39,7 @@ public class FileSystemEventStoreTest {
 
         FileInputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(new File(System.getProperty("java.io.tmpdir"), "somefile.evt"));
+            inputStream = new FileInputStream(new File(System.getProperty("java.io.tmpdir"), "/type/123.evt"));
 
             assertThat(new DataInputStream(inputStream).readUTF()).isEqualTo("Events payload");
         } finally {
