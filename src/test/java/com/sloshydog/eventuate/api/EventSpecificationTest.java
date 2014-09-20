@@ -8,12 +8,12 @@ import static org.mockito.Mockito.when;
 
 public class EventSpecificationTest {
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenNullAggregateIdProvided() {
         new EventSpecification(null, "foo");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenNullAggregateTypeProvided() {
         new EventSpecification("123", null);
     }

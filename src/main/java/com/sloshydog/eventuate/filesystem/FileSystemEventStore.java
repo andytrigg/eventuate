@@ -2,6 +2,7 @@ package com.sloshydog.eventuate.filesystem;
 
 import com.sloshydog.eventuate.api.Event;
 import com.sloshydog.eventuate.api.EventSpecification;
+import com.sloshydog.eventuate.api.EventSpecifications;
 import com.sloshydog.eventuate.api.EventStore;
 import com.sloshydog.eventuate.api.EventStoreException;
 import com.sloshydog.eventuate.api.EventStream;
@@ -25,7 +26,7 @@ public class FileSystemEventStore implements EventStore {
     public void store(Event applicationEvent) {
         OutputStream out = null;
         try {
-            out = new FileOutputStream(new File(baseDirectory, "somefile.evt"));
+            out = new FileOutputStream(new File(getBaseDirForType(EventSpecifications.specificationFrom(applicationEvent)), "somefile.evt"));
             DataOutputStream dataOutputStream = new DataOutputStream(out);
             dataOutputStream.writeUTF(applicationEvent.getPayload());
         } catch (IOException e) {
@@ -35,6 +36,14 @@ public class FileSystemEventStore implements EventStore {
         }
 
     }
+
+    private File getBaseDirForType(EventSpecification eventSpecification) {
+         File typeSpecificDir = new File(baseDirectory, eventSpecification.getAggregateType());
+         if (!typeSpecificDir.exists() && !typeSpecificDir.mkdirs()) {
+             throw new RuntimeException("Should be an IO exception");
+         }
+         return typeSpecificDir;
+     }
 
     public void closeQuietly(Closeable closeable) {
         if (closeable != null) {

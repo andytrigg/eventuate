@@ -23,6 +23,9 @@ public class FileSystemEventStoreTest {
     @Test
     public void shouldBeAbleToStoreAnEventToTheFileSystem() throws IOException {
         Event newEvent = mock(Event.class);
+        when(newEvent.getIdentifier()).thenReturn("123");
+        when(newEvent.getAggregateType()).thenReturn("type");
+
         when(newEvent.getPayload()).thenReturn("Events payload");
 
         EventStore eventStore = new FileSystemEventStore(System.getProperty("java.io.tmpdir"));
