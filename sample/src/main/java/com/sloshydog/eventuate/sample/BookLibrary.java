@@ -21,5 +21,6 @@ public final class BookLibrary {
         FileUtils.deleteDirectory(baseDirectory);
 
         EventStore eventStore = new FileSystemEventStore(new EventStoreFileResolver(baseDirectory));
+
     }
 }
