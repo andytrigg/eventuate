@@ -27,7 +27,7 @@ public class EventSpecification {
 
     public boolean matches(Event event) {
         checkNotNull(event, "event is null");
-        return aggregateIdentifier.matches(event.getIdentifier()) && getAggregateType().matches(event.getAggregateType());
+        return aggregateIdentifier.matches(event.getAggregateIdentifier()) && getAggregateType().matches(event.getAggregateType());
     }
 
     @Override

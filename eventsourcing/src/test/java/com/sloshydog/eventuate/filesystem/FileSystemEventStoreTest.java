@@ -37,7 +37,7 @@ public class FileSystemEventStoreTest {
     @Test
     public void shouldBeAbleToStoreAnEventToTheFileSystem() throws IOException {
         Event newEvent = mock(Event.class);
-        when(newEvent.getIdentifier()).thenReturn("124");
+        when(newEvent.getAggregateIdentifier()).thenReturn("124");
         when(newEvent.getAggregateType()).thenReturn("type");
 
         when(newEvent.getPayload()).thenReturn("Events payload");
@@ -66,7 +66,7 @@ public class FileSystemEventStoreTest {
 //    @Test()
 //    public void shouldBeAbleToReadAnEventForTheStore() {
 //        Event newEvent = mock(Event.class);
-//        when(newEvent.getIdentifier()).thenReturn("123");
+//        when(newEvent.getAggregateIdentifier()).thenReturn("123");
 //        when(newEvent.getAggregateType()).thenReturn("type");
 //
 //        when(newEvent.getPayload()).thenReturn("Events payload");

@@ -9,6 +9,6 @@ public final class EventSpecifications {
 
     public static EventSpecification specificationFrom(Event event) {
         checkArgument(event != null, "event is null");
-        return new EventSpecification(event.getIdentifier(), event.getAggregateType());
+        return new EventSpecification(event.getAggregateIdentifier(), event.getAggregateType());
     }
 }

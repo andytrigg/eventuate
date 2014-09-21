@@ -1,7 +1,5 @@
 package com.sloshydog.eventuate.api;
 
-import com.sloshydog.eventuate.api.Event;
-import com.sloshydog.eventuate.api.EventSpecification;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +36,7 @@ public class EventSpecificationTest {
     @Test
     public void shouldBeAbleToMatchAnEventWithTheCorrectSpecification() {
         Event expectedEvent = mock(Event.class);
-        when(expectedEvent.getIdentifier()).thenReturn("123");
+        when(expectedEvent.getAggregateIdentifier()).thenReturn("123");
         when(expectedEvent.getAggregateType()).thenReturn("type");
 
         assertThat(new EventSpecification("123", "type").matches(expectedEvent)).isTrue();
@@ -47,7 +45,7 @@ public class EventSpecificationTest {
     @Test
     public void shouldNotMatchAnEventIfTheAggregateIdIsIncorrect() {
         Event expectedEvent = mock(Event.class);
-        when(expectedEvent.getIdentifier()).thenReturn("923");
+        when(expectedEvent.getAggregateIdentifier()).thenReturn("923");
         when(expectedEvent.getAggregateType()).thenReturn("type");
 
         assertThat(new EventSpecification("123", "type").matches(expectedEvent)).isFalse();
@@ -56,7 +54,7 @@ public class EventSpecificationTest {
     @Test
     public void shouldNotMatchAnEventIfTheAggregateTypeIsIncorrect() {
         Event expectedEvent = mock(Event.class);
-        when(expectedEvent.getIdentifier()).thenReturn("123");
+        when(expectedEvent.getAggregateIdentifier()).thenReturn("123");
         when(expectedEvent.getAggregateType()).thenReturn("wrong type");
 
         assertThat(new EventSpecification("123", "type").matches(expectedEvent)).isFalse();
