@@ -38,5 +38,14 @@ public class PreconditionsTest {
 
     }
 
-
+    @Test
+    public void shouldThrowWhenObjectArgumentIsBlank() {
+        try {
+            Integer someNumber = null;
+            Preconditions.<Integer>checkArgumentProvided(someNumber, "argument");
+            failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
+        } catch (IllegalArgumentException e) {
+            assertThat(e).hasMessage("argument is null");
+        }
+    }
 }

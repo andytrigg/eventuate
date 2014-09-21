@@ -6,18 +6,23 @@ import static com.sloshydog.eventuate.api.Preconditions.checkArgumentProvided;
 
 public final class Events {
 
-    public static <E> Event<E> newDomainEvent(String aggregateId, String aggregateType) {
-        return new DomainEvent<>(checkArgumentProvided(aggregateId, "aggregateId"), checkArgumentProvided(aggregateType, "aggregateType"));
+    public static <E> Event<E> newDomainEvent(String aggregateId, String aggregateType, E payload) {
+        return new DomainEvent<>(
+                checkArgumentProvided(aggregateId, "aggregateId"),
+                checkArgumentProvided(aggregateType, "aggregateType"),
+                checkArgumentProvided(payload, "payload"));
     }
 
     private static class DomainEvent<E> implements Event<E> {
 
         private final String aggregateId;
         private final String aggregateType;
+        private final E payload;
 
-        private DomainEvent(String aggregateId, String aggregateType) {
+        private DomainEvent(String aggregateId, String aggregateType, E payload) {
             this.aggregateId = aggregateId;
             this.aggregateType = aggregateType;
+            this.payload = payload;
         }
 
         @Override
@@ -37,7 +42,7 @@ public final class Events {
 
         @Override
         public E getPayload() {
-            return null;
+            return payload;
         }
     }
 }

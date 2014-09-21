@@ -9,4 +9,9 @@ public class Preconditions {
         checkArgument(isNotBlank(value), "%s is blank or empty", name);
         return value;
     }
+
+    public static <E>  E checkArgumentProvided(E value, String name) {
+        checkArgument(value != null, "%s is null", name);
+        return value;
+    }
 }
