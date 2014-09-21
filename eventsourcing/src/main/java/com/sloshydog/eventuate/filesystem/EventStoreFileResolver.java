@@ -6,14 +6,16 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class EventStoreFileResolver {
 
     private static final String FILE_NAME_TEMPLATE = "%s.evt";
 
     private final File baseDirectory;
 
-    public EventStoreFileResolver(String baseDirectory) {
-        this.baseDirectory = new File(baseDirectory);
+    public EventStoreFileResolver(File baseDirectory) {
+        this.baseDirectory = checkNotNull(baseDirectory);
     }
 
     public File getFileFor(EventSpecification eventSpecification) {

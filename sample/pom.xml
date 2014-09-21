@@ -11,5 +11,21 @@
 
     <artifactId>eventuate-sample</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.sloshydog</groupId>
+            <artifactId>eventuate-eventsourcing</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
