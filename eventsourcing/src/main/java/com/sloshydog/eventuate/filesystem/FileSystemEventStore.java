@@ -35,7 +35,7 @@ public class FileSystemEventStore implements EventStore {
             EventSpecification eventSpecification = specificationFrom(applicationEvent);
             out = new FileOutputStream(eventStoreFileResolver.getFileFor(eventSpecification), true);
             DataOutputStream dataOutputStream = new DataOutputStream(out);
-            dataOutputStream.writeUTF(applicationEvent.getPayload());
+            dataOutputStream.writeUTF(applicationEvent.getPayload().toString());
         } catch (IOException e) {
             throw new EventStoreException("Unable to store given entity due to an IOException", e);
         } finally {

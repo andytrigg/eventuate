@@ -2,7 +2,7 @@ package com.sloshydog.eventuate.api;
 
 import org.joda.time.DateTime;
 
-public interface Event {
+public interface Event<E> {
 
     String getIdentifier();
 
@@ -12,5 +12,5 @@ public interface Event {
 
     String getType();
 
-    String getPayload();
+    E getPayload();
 }
