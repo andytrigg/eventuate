@@ -1,5 +1,6 @@
 package com.sloshydog.eventuate.filesystem;
 
+import com.sloshydog.eventuate.filesystem.IOUtils;
 import org.junit.Test;
 
 import java.io.Closeable;

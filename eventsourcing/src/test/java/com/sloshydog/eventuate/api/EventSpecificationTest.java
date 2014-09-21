@@ -1,5 +1,7 @@
 package com.sloshydog.eventuate.api;
 
+import com.sloshydog.eventuate.api.Event;
+import com.sloshydog.eventuate.api.EventSpecification;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

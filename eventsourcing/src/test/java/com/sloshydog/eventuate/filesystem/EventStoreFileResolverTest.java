@@ -1,6 +1,7 @@
 package com.sloshydog.eventuate.filesystem;
 
 import com.sloshydog.eventuate.api.EventSpecification;
+import com.sloshydog.eventuate.filesystem.EventStoreFileResolver;
 import org.junit.Test;
 
 import java.io.File;

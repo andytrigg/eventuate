@@ -4,6 +4,7 @@ import com.sloshydog.eventuate.api.Event;
 import com.sloshydog.eventuate.api.EventSpecification;
 import com.sloshydog.eventuate.api.EventStore;
 import com.sloshydog.eventuate.api.EventStream;
+import com.sloshydog.eventuate.inmemory.InMemoryEventStore;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

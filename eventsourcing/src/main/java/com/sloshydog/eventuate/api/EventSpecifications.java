@@ -2,7 +2,10 @@ package com.sloshydog.eventuate.api;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public class EventSpecifications {
+public final class EventSpecifications {
+
+    private EventSpecifications() {
+    }
 
     public static EventSpecification specificationFrom(Event event) {
         checkArgument(event != null, "event is null");

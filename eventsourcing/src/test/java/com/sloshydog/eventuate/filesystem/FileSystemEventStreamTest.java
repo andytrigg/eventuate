@@ -1,6 +1,7 @@
 package com.sloshydog.eventuate.filesystem;
 
 import com.sloshydog.eventuate.api.EventStream;
+import com.sloshydog.eventuate.filesystem.FileSystemEventStream;
 import org.junit.Test;
 
 import java.io.Closeable;
