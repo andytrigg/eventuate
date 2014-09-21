@@ -37,19 +37,22 @@ public class FileSystemEventStoreTest {
     @Test
     public void shouldBeAbleToStoreAnEventToTheFileSystem() throws IOException {
         Event newEvent = mock(Event.class);
-        when(newEvent.getIdentifier()).thenReturn("123");
+        when(newEvent.getIdentifier()).thenReturn("124");
         when(newEvent.getAggregateType()).thenReturn("type");
 
         when(newEvent.getPayload()).thenReturn("Events payload");
 
-        when(eventStoreFileResolver.getFileFor(new EventSpecification("123", "type"))).thenReturn(new File(System.getProperty("java.io.tmpdir"), "/type/123.evt"));
+        File eventFile = new File(System.getProperty("java.io.tmpdir"), "/type/124.evt");
+        eventFile.createNewFile();
+
+        when(eventStoreFileResolver.getFileFor(new EventSpecification("124", "type"))).thenReturn(eventFile);
 
         EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver);
         eventStore.store(newEvent);
 
         FileInputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(new File(System.getProperty("java.io.tmpdir"), "/type/123.evt"));
+            inputStream = new FileInputStream(eventFile);
 
             assertThat(new DataInputStream(inputStream).readUTF()).isEqualTo("Events payload");
         } finally {
