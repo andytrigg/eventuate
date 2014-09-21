@@ -13,6 +13,13 @@
 
     <name>eventuate</name>
     <url>https://github.com/andytrigg/eventuate</url>
+    <licenses>
+      <license>
+        <name>Apache License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+      </license>
+    </licenses>
     <prerequisites>
         <maven>3.2.3</maven>
     </prerequisites>
