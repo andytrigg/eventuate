@@ -7,11 +7,12 @@ import com.sloshydog.eventuate.api.EventStore;
 import com.sloshydog.eventuate.api.EventStoreException;
 import com.sloshydog.eventuate.api.EventStream;
 
-import java.io.Closeable;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import static com.sloshydog.eventuate.filesystem.IOUtils.closeQuietly;
 
 public class FileSystemEventStore implements EventStore {
 
@@ -35,15 +36,6 @@ public class FileSystemEventStore implements EventStore {
             closeQuietly(out);
         }
 
-    }
-
-    public void closeQuietly(Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (IOException ignored) {
-            }
-        }
     }
 
     @Override
