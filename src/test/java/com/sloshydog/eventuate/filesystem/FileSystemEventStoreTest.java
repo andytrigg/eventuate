@@ -42,9 +42,9 @@ public class FileSystemEventStoreTest {
 
         when(newEvent.getPayload()).thenReturn("Events payload");
 
-        File eventFile = new File(System.getProperty("java.io.tmpdir"), "/type/124.evt");
-        eventFile.mkdirs();
-        eventFile.createNewFile();
+        File eventFileDirectory = new File(System.getProperty("java.io.tmpdir"), "/type");
+        eventFileDirectory.mkdirs();
+        File eventFile = new File(eventFileDirectory, "124.evt");
 
         when(eventStoreFileResolver.getFileFor(new EventSpecification("124", "type"))).thenReturn(eventFile);
 
