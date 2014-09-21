@@ -9,20 +9,16 @@ import com.sloshydog.eventuate.api.EventStream;
 
 import java.io.Closeable;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 public class FileSystemEventStore implements EventStore {
 
-    private static final String FILE_NAME_TEMPLATE = "%s.evt";
-    private final String baseDirectory;
+    private final EventStoreFileResolver eventStoreFileResolver;
 
-    public FileSystemEventStore(String baseDirectory) {
-        this.baseDirectory = baseDirectory;
+    public FileSystemEventStore(EventStoreFileResolver eventStoreFileResolver) {
+        this.eventStoreFileResolver = eventStoreFileResolver;
     }
 
     @Override
@@ -30,7 +26,7 @@ public class FileSystemEventStore implements EventStore {
         OutputStream out = null;
         try {
             EventSpecification eventSpecification = EventSpecifications.specificationFrom(applicationEvent);
-            out = new FileOutputStream(new File(getBaseDirFor(eventSpecification), getFileNameFor(eventSpecification)), true);
+            out = new FileOutputStream(eventStoreFileResolver.getFileFor(eventSpecification), true);
             DataOutputStream dataOutputStream = new DataOutputStream(out);
             dataOutputStream.writeUTF(applicationEvent.getPayload());
         } catch (IOException e) {
@@ -39,26 +35,6 @@ public class FileSystemEventStore implements EventStore {
             closeQuietly(out);
         }
 
-    }
-
-    private String getFileNameFor(EventSpecification eventSpecification) {
-        return String.format(FILE_NAME_TEMPLATE, urlEncode(eventSpecification.getAggregateIdentifier()));
-    }
-
-    private static String urlEncode(Object id) {
-        try {
-            return URLEncoder.encode(id.toString(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalStateException("System doesn't support UTF-8?", e);
-        }
-    }
-
-    private File getBaseDirFor(EventSpecification eventSpecification) {
-        File typeSpecificDir = new File(baseDirectory, eventSpecification.getAggregateType());
-        if (!typeSpecificDir.exists() && !typeSpecificDir.mkdirs()) {
-            throw new RuntimeException("Should be an IO exception");
-        }
-        return typeSpecificDir;
     }
 
     public void closeQuietly(Closeable closeable) {

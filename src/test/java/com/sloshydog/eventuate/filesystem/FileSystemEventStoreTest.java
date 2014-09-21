@@ -1,8 +1,12 @@
 package com.sloshydog.eventuate.filesystem;
 
 import com.sloshydog.eventuate.api.Event;
+import com.sloshydog.eventuate.api.EventSpecification;
 import com.sloshydog.eventuate.api.EventStore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -13,7 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class FileSystemEventStoreTest {
+
+    @Mock
+    private EventStoreFileResolver eventStoreFileResolver;
 
     @Test
     public void shouldBeAnEventStore() {
@@ -22,7 +30,7 @@ public class FileSystemEventStoreTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowAnExceptionWhenTheEventIsNull() {
-        EventStore eventStore = new FileSystemEventStore(System.getProperty("java.io.tmpdir"));
+        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver);
         eventStore.store(null);
     }
 
@@ -34,7 +42,9 @@ public class FileSystemEventStoreTest {
 
         when(newEvent.getPayload()).thenReturn("Events payload");
 
-        EventStore eventStore = new FileSystemEventStore(System.getProperty("java.io.tmpdir"));
+        when(eventStoreFileResolver.getFileFor(new EventSpecification("123", "type"))).thenReturn(new File(System.getProperty("java.io.tmpdir"), "/type/123.evt"));
+
+        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver);
         eventStore.store(newEvent);
 
         FileInputStream inputStream = null;
