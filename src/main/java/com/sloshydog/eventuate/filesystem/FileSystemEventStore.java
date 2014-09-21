@@ -6,6 +6,8 @@ import com.sloshydog.eventuate.api.EventSpecifications;
 import com.sloshydog.eventuate.api.EventStore;
 import com.sloshydog.eventuate.api.EventStoreException;
 import com.sloshydog.eventuate.api.EventStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
@@ -15,6 +17,7 @@ import java.io.OutputStream;
 import static com.sloshydog.eventuate.filesystem.IOUtils.closeQuietly;
 
 public class FileSystemEventStore implements EventStore {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemEventStore.class);
 
     private final EventStoreFileResolver eventStoreFileResolver;
 
@@ -24,6 +27,10 @@ public class FileSystemEventStore implements EventStore {
 
     @Override
     public void store(Event applicationEvent) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("store the event:%s", applicationEvent);
+        }
+
         OutputStream out = null;
         try {
             EventSpecification eventSpecification = EventSpecifications.specificationFrom(applicationEvent);
