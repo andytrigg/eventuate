@@ -8,6 +8,7 @@ import com.sloshydog.eventuate.api.EventStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class InMemoryEventStore implements EventStore {
             @Override
             public Iterator<Event> iterator() {
                 return from(events).filter(new EventSpecificationPredicate(eventSpecification)).iterator();
+            }
+
+            @Override
+            public void close() throws IOException {
+
             }
         };
     }
