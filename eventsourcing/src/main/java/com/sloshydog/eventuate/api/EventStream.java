@@ -1,5 +1,7 @@
 package com.sloshydog.eventuate.api;
 
-public interface EventStream extends Iterable<Event> {
+import java.io.Closeable;
+
+public interface EventStream extends Iterable<Event>, Closeable {
 
 }

@@ -46,7 +46,7 @@ public class FileSystemEventStoreTest {
         eventFileDirectory.mkdirs();
         File eventFile = new File(eventFileDirectory, "124.evt");
 
-        when(eventStoreFileResolver.getFileFor(new EventSpecification("124", "type"))).thenReturn(eventFile);
+        when(eventStoreFileResolver.getFileFor(new EventSpecification("type", "124"))).thenReturn(eventFile);
 
         EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver);
         eventStore.store(newEvent);

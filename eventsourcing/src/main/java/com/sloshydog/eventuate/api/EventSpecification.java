@@ -10,9 +10,9 @@ public class EventSpecification {
     private final String aggregateIdentifier;
     private final String aggregateType;
 
-    public EventSpecification(String aggregateIdentifier, String aggregateType) {
-        checkArgument(aggregateIdentifier != null, "aggregateIdentifier is null");
+    public EventSpecification(String aggregateType, String aggregateIdentifier) {
         checkArgument(aggregateType != null, "aggregateIdentifier is null");
+        checkArgument(aggregateIdentifier != null, "aggregateIdentifier is null");
         this.aggregateIdentifier = aggregateIdentifier;
         this.aggregateType = aggregateType;
     }

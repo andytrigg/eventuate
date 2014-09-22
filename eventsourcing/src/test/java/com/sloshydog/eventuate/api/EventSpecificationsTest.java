@@ -19,6 +19,6 @@ public class EventSpecificationsTest {
         when(event.getAggregateIdentifier()).thenReturn("123");
         when(event.getAggregateType()).thenReturn("type");
 
-        assertThat(EventSpecifications.specificationFrom(event)).isEqualTo(new EventSpecification("123", "type"));
+        assertThat(EventSpecifications.specificationFrom(event)).isEqualTo(new EventSpecification("type", "123"));
     }
 }

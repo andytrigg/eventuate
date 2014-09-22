@@ -6,7 +6,7 @@ import static com.sloshydog.eventuate.api.Preconditions.checkArgumentProvided;
 
 public final class Events {
 
-    public static <E> Event<E> newDomainEvent(String aggregateId, String aggregateType, E payload) {
+    public static <E> Event<E> newDomainEvent(String aggregateType, String aggregateId, E payload) {
         return new DomainEvent<>(
                 checkArgumentProvided(aggregateId, "aggregateId"),
                 checkArgumentProvided(aggregateType, "aggregateType"),

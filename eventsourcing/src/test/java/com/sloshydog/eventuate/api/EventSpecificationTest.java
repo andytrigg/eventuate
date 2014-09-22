@@ -10,27 +10,27 @@ public class EventSpecificationTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenNullAggregateIdProvided() {
-        new EventSpecification(null, "foo");
+        new EventSpecification("foo", null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenNullAggregateTypeProvided() {
-        new EventSpecification("123", null);
+        new EventSpecification(null, "123");
     }
 
     @Test
     public void shouldBeAbleToGetAggregateId() {
-        assertThat(new EventSpecification("123", "type").getAggregateIdentifier()).isEqualTo("123");
+        assertThat(new EventSpecification("type", "123").getAggregateIdentifier()).isEqualTo("123");
     }
 
     @Test
     public void shouldBeAbleToGetAggregateType() {
-        assertThat(new EventSpecification("123", "type").getAggregateType()).isEqualTo("type");
+        assertThat(new EventSpecification("type", "123").getAggregateType()).isEqualTo("type");
     }
 
     @Test(expected = NullPointerException.class)
     public void shouldThrowExceptionWhenNullEventGivenToMatch() {
-        new EventSpecification("123", "type").matches(null);
+        new EventSpecification("type", "123").matches(null);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class EventSpecificationTest {
         when(expectedEvent.getAggregateIdentifier()).thenReturn("123");
         when(expectedEvent.getAggregateType()).thenReturn("type");
 
-        assertThat(new EventSpecification("123", "type").matches(expectedEvent)).isTrue();
+        assertThat(new EventSpecification("type", "123").matches(expectedEvent)).isTrue();
     }
 
     @Test
@@ -48,7 +48,7 @@ public class EventSpecificationTest {
         when(expectedEvent.getAggregateIdentifier()).thenReturn("923");
         when(expectedEvent.getAggregateType()).thenReturn("type");
 
-        assertThat(new EventSpecification("123", "type").matches(expectedEvent)).isFalse();
+        assertThat(new EventSpecification("type", "123").matches(expectedEvent)).isFalse();
     }
 
     @Test
@@ -57,6 +57,6 @@ public class EventSpecificationTest {
         when(expectedEvent.getAggregateIdentifier()).thenReturn("123");
         when(expectedEvent.getAggregateType()).thenReturn("wrong type");
 
-        assertThat(new EventSpecification("123", "type").matches(expectedEvent)).isFalse();
+        assertThat(new EventSpecification("type", "123").matches(expectedEvent)).isFalse();
     }
 }

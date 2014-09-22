@@ -16,7 +16,7 @@ public class EventStoreFileResolverTest {
 
     @Test
     public void should() {
-        EventSpecification eventSpecification = new EventSpecification("123", "type");
+        EventSpecification eventSpecification = new EventSpecification("type", "123");
 
         File baseDirectory = new File(System.getProperty("java.io.tmpdir"));
         File actualFile = new EventStoreFileResolver(baseDirectory).getFileFor(eventSpecification);
