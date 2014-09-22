@@ -9,22 +9,26 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>eventuate-sample</artifactId>
+    <artifactId>eventuate-eventsourcing-filesystem</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.sloshydog</groupId>
-            <artifactId>eventuate-eventsourcing-filesystem</artifactId>
-            <version>${project.version}</version>
+            <artifactId>eventuate-eventsourcing</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
         <dependency>
-        	<groupId>org.slf4j</groupId>
-        	<artifactId>slf4j-log4j12</artifactId>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
         </dependency>
     </dependencies>
 

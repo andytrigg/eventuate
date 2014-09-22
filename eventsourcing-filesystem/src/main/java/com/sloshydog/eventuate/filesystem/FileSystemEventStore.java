@@ -2,9 +2,11 @@ package com.sloshydog.eventuate.filesystem;
 
 import com.sloshydog.eventuate.api.Event;
 import com.sloshydog.eventuate.api.EventSpecification;
+import com.sloshydog.eventuate.api.EventSpecifications;
 import com.sloshydog.eventuate.api.EventStore;
 import com.sloshydog.eventuate.api.EventStoreException;
 import com.sloshydog.eventuate.api.EventStream;
+import com.sloshydog.eventuate.common.LogUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,9 +14,6 @@ import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import static com.sloshydog.eventuate.api.EventSpecifications.specificationFrom;
-import static com.sloshydog.eventuate.common.LogUtils.debug;
 
 public class FileSystemEventStore implements EventStore {
 
@@ -28,11 +27,11 @@ public class FileSystemEventStore implements EventStore {
 
     @Override
     public void store(Event applicationEvent) {
-        debug(LOGGER, "store the event:%s", applicationEvent);
+        LogUtils.debug(LOGGER, "store the event:%s", applicationEvent);
 
         OutputStream out = null;
         try {
-            EventSpecification eventSpecification = specificationFrom(applicationEvent);
+            EventSpecification eventSpecification = EventSpecifications.specificationFrom(applicationEvent);
             out = new FileOutputStream(eventStoreFileResolver.getFileFor(eventSpecification), true);
             DataOutputStream dataOutputStream = new DataOutputStream(out);
             dataOutputStream.writeUTF(applicationEvent.getPayload().toString());

@@ -8,6 +8,8 @@
     <modules>
         <module>sample</module>
         <module>eventsourcing</module>
+        <module>eventsourcing-filesystem</module>
+        <module>eventsourcing-inmemory</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,11 +1,10 @@
 package com.sloshydog.eventuate.filesystem;
 
 import com.sloshydog.eventuate.api.EventSpecification;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.io.File;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventStoreFileResolverTest {
 
@@ -21,6 +20,6 @@ public class EventStoreFileResolverTest {
         File baseDirectory = new File(System.getProperty("java.io.tmpdir"));
         File actualFile = new EventStoreFileResolver(baseDirectory).getFileFor(eventSpecification);
 
-        assertThat(actualFile).isEqualTo(new File(baseDirectory, "type/123.evt"));
+        Assertions.assertThat(actualFile).isEqualTo(new File(baseDirectory, "type/123.evt"));
     }
 }

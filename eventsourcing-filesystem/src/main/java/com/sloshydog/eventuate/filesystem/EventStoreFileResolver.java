@@ -1,12 +1,11 @@
 package com.sloshydog.eventuate.filesystem;
 
+import com.google.common.base.Preconditions;
 import com.sloshydog.eventuate.api.EventSpecification;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class EventStoreFileResolver {
 
@@ -15,7 +14,7 @@ public class EventStoreFileResolver {
     private final File baseDirectory;
 
     public EventStoreFileResolver(File baseDirectory) {
-        this.baseDirectory = checkNotNull(baseDirectory);
+        this.baseDirectory = Preconditions.checkNotNull(baseDirectory);
     }
 
     public File getFileFor(EventSpecification eventSpecification) {
