@@ -63,6 +63,7 @@ public class FileSystemEventStoreTest {
         }
     }
 
+    // TODO require a test when exception is thrown during storage.
 //    @Test()
 //    public void shouldBeAbleToReadAnEventForTheStore() {
 //        Event newEvent = mock(Event.class);

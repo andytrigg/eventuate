@@ -1,4 +1,4 @@
-package com.sloshydog.eventuate.api;
+package com.sloshydog.eventuate.common;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;

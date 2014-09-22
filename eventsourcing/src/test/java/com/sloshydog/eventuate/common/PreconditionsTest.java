@@ -1,5 +1,6 @@
-package com.sloshydog.eventuate.api;
+package com.sloshydog.eventuate.common;
 
+import com.sloshydog.eventuate.common.Preconditions;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

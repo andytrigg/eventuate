@@ -2,7 +2,7 @@ package com.sloshydog.eventuate.api;
 
 import org.joda.time.DateTime;
 
-import static com.sloshydog.eventuate.api.Preconditions.checkArgumentProvided;
+import static com.sloshydog.eventuate.common.Preconditions.checkArgumentProvided;
 
 public final class Events {
 
