@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.io.Closeable;
-import java.util.Iterator;
 
 public class EventStreamTest {
     @Test

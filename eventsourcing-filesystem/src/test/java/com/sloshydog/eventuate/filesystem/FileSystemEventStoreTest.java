@@ -20,6 +20,8 @@ public class FileSystemEventStoreTest {
 
     @Mock
     private EventStoreFileResolver eventStoreFileResolver;
+    @Mock
+    private FileSystemEventMessageWriter eventMessageWriter;
 
     @Test
     public void shouldBeAnEventStore() {
@@ -28,7 +30,7 @@ public class FileSystemEventStoreTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowAnExceptionWhenTheEventIsNull() {
-        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver);
+        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter);
         eventStore.store(null);
     }
 
@@ -46,7 +48,7 @@ public class FileSystemEventStoreTest {
 
         Mockito.when(eventStoreFileResolver.getFileFor(new EventSpecification("type", "124"))).thenReturn(eventFile);
 
-        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver);
+        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter);
         eventStore.store(newEvent);
 
         FileInputStream inputStream = null;

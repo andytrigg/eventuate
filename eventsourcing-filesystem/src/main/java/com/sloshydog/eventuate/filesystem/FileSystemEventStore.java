@@ -20,9 +20,11 @@ public class FileSystemEventStore implements EventStore {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemEventStore.class);
 
     private final EventStoreFileResolver eventStoreFileResolver;
+    private final FileSystemEventMessageWriter eventMessageWriter;
 
-    public FileSystemEventStore(EventStoreFileResolver eventStoreFileResolver) {
+    public FileSystemEventStore(EventStoreFileResolver eventStoreFileResolver, FileSystemEventMessageWriter eventMessageWriter) {
         this.eventStoreFileResolver = eventStoreFileResolver;
+        this.eventMessageWriter = eventMessageWriter;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class FileSystemEventStore implements EventStore {
             EventSpecification eventSpecification = EventSpecifications.specificationFrom(applicationEvent);
             out = new FileOutputStream(eventStoreFileResolver.getFileFor(eventSpecification), true);
             DataOutputStream dataOutputStream = new DataOutputStream(out);
-            dataOutputStream.writeUTF(applicationEvent.getPayload().toString());
+            eventMessageWriter.writeEventMessage(dataOutputStream, applicationEvent);
         } catch (IOException e) {
             throw new EventStoreException("Unable to store given entity due to an IOException", e);
         } finally {
