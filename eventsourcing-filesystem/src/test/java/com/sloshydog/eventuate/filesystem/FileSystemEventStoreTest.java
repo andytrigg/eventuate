@@ -10,10 +10,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.DataInputStream;
+import java.io.DataOutput;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FileSystemEventStoreTest {
@@ -51,16 +54,7 @@ public class FileSystemEventStoreTest {
         EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter);
         eventStore.store(newEvent);
 
-        FileInputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(eventFile);
-
-            Assertions.assertThat(new DataInputStream(inputStream).readUTF()).isEqualTo("Events payload");
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        }
+        verify(eventMessageWriter).writeEventMessage(any(DataOutput.class), eq(newEvent));
     }
 
     // TODO require a test when exception is thrown during storage.
