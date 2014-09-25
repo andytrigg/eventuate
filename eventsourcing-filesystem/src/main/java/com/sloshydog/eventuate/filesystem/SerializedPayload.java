@@ -1,8 +1,6 @@
 package com.sloshydog.eventuate.filesystem;
 
-public class SerializedPayload {
+public interface SerializedPayload {
 
-    public byte[] getData() {
-        return null;
-    }
+    byte[] getData();
 }
