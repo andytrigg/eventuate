@@ -43,7 +43,7 @@ public class PayloadSerializerTest {
     }
 
     @Test
-    public void ensureExceptionIsThrownIfSerializatioFails() throws IOException {
+    public void ensureExceptionIsThrownIfSerializationFails() throws IOException {
         PayloadSerializer payloadSerializer = spy(new PayloadSerializer());
         doThrow(new IOException("Bang")).when(payloadSerializer).createObjectOutputStream(any(ByteArrayOutputStream.class));
 
