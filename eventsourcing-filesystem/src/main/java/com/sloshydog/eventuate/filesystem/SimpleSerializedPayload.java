@@ -17,12 +17,12 @@ public class SimpleSerializedPayload implements SerializedPayload {
     }
 
     @Override
-     public boolean equals(Object other) {
-         return reflectionEquals(this, other);
-     }
+    public boolean equals(Object other) {
+        return reflectionEquals(this, other);
+    }
 
-     @Override
-     public int hashCode() {
-         return reflectionHashCode(this);
-     }
+    @Override
+    public int hashCode() {
+        return reflectionHashCode(this);
+    }
 }

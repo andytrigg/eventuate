@@ -12,30 +12,38 @@ public class PayloadSerializer {
 
     public SerializedPayload serialize(Object payload) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-             try {
-                 ObjectOutputStream outputStream = new ObjectOutputStream(byteArrayOutputStream);
-                 try {
-                     outputStream.writeObject(payload);
-                 } finally {
-                     outputStream.close();
-                 }
-             } catch (IOException e) {
-                 throw new EventStoreException("An exception occurred writing serialized data to the output stream", e);
-             }
-             return new SimpleSerializedPayload(byteArrayOutputStream.toByteArray());
+        try {
+            ObjectOutputStream outputStream = createObjectOutputStream(byteArrayOutputStream);
+            try {
+                outputStream.writeObject(payload);
+            } finally {
+                outputStream.close();
+            }
+        } catch (IOException e) {
+            throw new EventStoreException("An exception occurred writing serialized data to the output stream", e);
+        }
+        return new SimpleSerializedPayload(byteArrayOutputStream.toByteArray());
     }
 
-      public Object deserialize(SerializedPayload serializedPayload) {
-          ObjectInputStream ois = null;
-          try {
-              ois = new ObjectInputStream(new ByteArrayInputStream(serializedPayload.getData()));
-              return ois.readObject();
-          } catch (ClassNotFoundException e) {
-              throw new EventStoreException("An error occurred while deserializing: " + e.getMessage(), e);
-          } catch (IOException e) {
-              throw new EventStoreException("An error occurred while deserializing: " + e.getMessage(), e);
-          } finally {
-              IOUtils.closeQuietly(ois);
-          }
-      }
+    public Object deserialize(SerializedPayload serializedPayload) {
+        ObjectInputStream inputStream = null;
+        try {
+            inputStream = createObjectInputStream(serializedPayload);
+            return inputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            throw new EventStoreException("An error occurred while deserializing: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new EventStoreException("An error occurred while deserializing: " + e.getMessage(), e);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
+        }
+    }
+
+    ObjectInputStream createObjectInputStream(SerializedPayload serializedPayload) throws IOException {
+        return new ObjectInputStream(new ByteArrayInputStream(serializedPayload.getData()));
+    }
+
+    ObjectOutputStream createObjectOutputStream(ByteArrayOutputStream byteArrayOutputStream) throws IOException {
+        return new ObjectOutputStream(byteArrayOutputStream);
+    }
 }
