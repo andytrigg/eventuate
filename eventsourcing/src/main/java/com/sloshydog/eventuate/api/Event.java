@@ -2,7 +2,9 @@ package com.sloshydog.eventuate.api;
 
 import org.joda.time.DateTime;
 
-public interface Event<E> {
+import java.io.Serializable;
+
+public interface Event<E> extends Serializable {
 
     String getAggregateIdentifier();
 
