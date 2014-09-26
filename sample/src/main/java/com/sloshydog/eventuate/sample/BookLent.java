@@ -3,7 +3,9 @@ package com.sloshydog.eventuate.sample;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
-public class BookLent {
+import java.io.Serializable;
+
+public class BookLent implements Serializable {
     private final String bookId;
     private final String borrower;
     private final DateTime date;

@@ -2,7 +2,9 @@ package com.sloshydog.eventuate.sample;
 
 import org.joda.time.Duration;
 
-public class BookReturned {
+import java.io.Serializable;
+
+public class BookReturned implements Serializable {
 
     private final String bookId;
     private final String by;

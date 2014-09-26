@@ -1,7 +1,8 @@
 package com.sloshydog.eventuate.sample;
 
-public class BookRegistered {
+import java.io.Serializable;
 
+public class BookRegistered implements Serializable {
     private final String bookId;
     private final String title;
     private final String author;
