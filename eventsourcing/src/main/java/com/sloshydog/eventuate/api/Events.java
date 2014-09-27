@@ -7,10 +7,11 @@ import static com.sloshydog.eventuate.common.Preconditions.checkArgumentProvided
 public final class Events {
 
     public static <E> Event<E> newDomainEvent(String aggregateType, String aggregateId, E payload) {
-        return new DomainEvent<>(
-                checkArgumentProvided(aggregateId, "aggregateId"),
-                checkArgumentProvided(aggregateType, "aggregateType"),
-                checkArgumentProvided(payload, "payload"));
+        return new DomainEvent<>(aggregateId, aggregateType, payload);
+    }
+
+    public static <E> Event<E> newDomainEvent(String aggregateType, String aggregateId, DateTime timeStamp, E payload) {
+        return new DomainEvent<E>(aggregateId, aggregateType, timeStamp, payload);
     }
 
     private static class DomainEvent<E> implements Event<E> {
@@ -18,11 +19,17 @@ public final class Events {
         private final String aggregateId;
         private final String aggregateType;
         private final E payload;
+        private final DateTime timeStamp;
 
         private DomainEvent(String aggregateId, String aggregateType, E payload) {
-            this.aggregateId = aggregateId;
-            this.aggregateType = aggregateType;
-            this.payload = payload;
+            this(aggregateId, aggregateType, new DateTime(), payload);
+        }
+
+        private DomainEvent(String aggregateId, String aggregateType, DateTime timeStamp, E payload) {
+            this.aggregateId = checkArgumentProvided(aggregateId, "aggregateId");
+            this.aggregateType = checkArgumentProvided(aggregateType, "aggregateType");
+            this.payload = checkArgumentProvided(payload, "payload");
+            this.timeStamp = checkArgumentProvided(timeStamp, "timeStamp");
         }
 
         @Override
@@ -32,7 +39,7 @@ public final class Events {
 
         @Override
         public DateTime getTimeStamp() {
-            return new DateTime();
+            return timeStamp;
         }
 
         @Override

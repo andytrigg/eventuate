@@ -1,5 +1,6 @@
 package com.sloshydog.eventuate.api;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,4 +66,18 @@ public class EventsTest {
         Event<String> newDomainEvent = Events.newDomainEvent("type", "123", "payload");
         assertThat(newDomainEvent.getPayload()).isEqualTo("payload");
     }
+
+    @Test
+    public void shouldBeAbleToCreateAnEventWithATimeStampExplicitlyProvided() {
+        DateTime timeStamp = new DateTime();
+        Event<String> newDomainEvent = Events.newDomainEvent("type", "123", timeStamp, "payload");
+        assertThat(newDomainEvent.getTimeStamp()).isEqualTo(timeStamp);
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowWhenTimeStampIsNull() {
+        Events.<String>newDomainEvent("type", "123", null, "payload");
+    }
+
 }
