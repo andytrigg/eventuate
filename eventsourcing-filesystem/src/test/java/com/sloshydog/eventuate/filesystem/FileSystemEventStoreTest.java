@@ -29,6 +29,8 @@ public class FileSystemEventStoreTest {
     private EventStoreFileResolver eventStoreFileResolver;
     @Mock
     private FileSystemEventMessageWriter eventMessageWriter;
+    @Mock
+    private FileSystemEventMessageReader eventMessageReader;
 
     @Test
     public void shouldBeAnEventStore() {
@@ -37,7 +39,7 @@ public class FileSystemEventStoreTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowAnExceptionWhenTheEventIsNull() {
-        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter);
+        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
         eventStore.store(null);
     }
 
@@ -53,7 +55,7 @@ public class FileSystemEventStoreTest {
 
         when(eventStoreFileResolver.getFileFor(new EventSpecification("type", "124"))).thenReturn(eventFile);
 
-        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter);
+        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
         eventStore.store(newEvent);
 
         verify(eventMessageWriter).writeEventMessage(any(DataOutput.class), eq(newEvent));
@@ -74,7 +76,7 @@ public class FileSystemEventStoreTest {
         when(eventStoreFileResolver.getFileFor(new EventSpecification("type", "124"))).thenReturn(eventFile);
         doThrow(new IOException("bang")).when(eventMessageWriter).writeEventMessage(any(DataOutput.class), eq(newEvent));
 
-        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter);
+        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
         try {
             eventStore.store(newEvent);
             failBecauseExceptionWasNotThrown(EventStoreException.class);

@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,10 +24,12 @@ public class FileSystemEventStore implements EventStore {
 
     private final EventStoreFileResolver eventStoreFileResolver;
     private final FileSystemEventMessageWriter eventMessageWriter;
+    private final FileSystemEventMessageReader eventMessageReader;
 
-    public FileSystemEventStore(EventStoreFileResolver eventStoreFileResolver, FileSystemEventMessageWriter eventMessageWriter) {
+    public FileSystemEventStore(EventStoreFileResolver eventStoreFileResolver, FileSystemEventMessageWriter eventMessageWriter, FileSystemEventMessageReader fileSystemEventMessageReader) {
         this.eventStoreFileResolver = eventStoreFileResolver;
         this.eventMessageWriter = eventMessageWriter;
+        this.eventMessageReader = fileSystemEventMessageReader;
     }
 
     @Override
@@ -47,19 +52,11 @@ public class FileSystemEventStore implements EventStore {
 
     @Override
     public EventStream getMatching(EventSpecification eventSpecification) {
-//        DataInputStream inputStream = null;
-//        try {
-//            inputStream = new DataInputStream(new FileInputStream(new File(getBaseDirFor(eventSpecification), getFileNameFor(eventSpecification))));
-//        } catch (FileNotFoundException e) {
-//            throw new EventStoreException("bang", e);
-//        }
-//        return new EventStream() {
-//
-//            @Override
-//            public Iterator<Event> iterator() {
-//                return new ;
-//            }
-//        };
-        return null;
+        try {
+            File inputFile = eventStoreFileResolver.getFileFor(eventSpecification);
+            return new FileSystemEventStream(eventMessageReader, new FileInputStream(inputFile));
+        } catch (FileNotFoundException e) {
+            throw new EventStoreException("Unable to load event due to an IOException", e);
+        }
     }
 }
