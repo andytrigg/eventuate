@@ -41,7 +41,7 @@ public class FileSystemEventStream implements EventStream {
         try {
             do {
                 events.add(eventMessageReader.readEventMessage(input));
-            } while (events.isEmpty());
+            } while (true);
         } catch (EOFException e) {
             // No more events available
         } catch (IOException e) {
