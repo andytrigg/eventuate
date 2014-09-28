@@ -4,6 +4,8 @@ import org.joda.time.Duration;
 
 import java.io.Serializable;
 
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 public class BookReturned implements Serializable {
 
     private final String bookId;
@@ -32,5 +34,10 @@ public class BookReturned implements Serializable {
 
     public boolean isLate() {
         return late;
+    }
+
+    @Override
+    public String toString() {
+        return reflectionToString(this);
     }
 }

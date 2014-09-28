@@ -9,8 +9,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.io.DataInput;
 import java.io.DataOutput;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -81,8 +84,40 @@ public class FileSystemEventStoreTest {
             eventStore.store(newEvent);
             failBecauseExceptionWasNotThrown(EventStoreException.class);
         } catch (EventStoreException e) {
-            assertThat(e).hasMessage("Unable to store given entity due to an IOException");
+            assertThat(e).hasMessage("Unable to load event due to a FileNotFoundException");
         }
+    }
 
+    @Test
+    public void shouldBeAbleToGetEventStreamForAMatch() throws IOException {
+        EventSpecification eventSpecification = mock(EventSpecification.class);
+
+        File eventFileDirectory = new File(System.getProperty("java.io.tmpdir"), "/type");
+        eventFileDirectory.mkdirs();
+        File eventFile = new File(eventFileDirectory, "124.evt");
+
+        when(eventStoreFileResolver.getFileFor(eventSpecification)).thenReturn(eventFile);
+
+        when(eventMessageReader.readEventMessage(any(DataInput.class))).thenThrow(new EOFException());
+        EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
+
+        assertThat(eventStore.getMatching(eventSpecification)).isNotNull();
+    }
+
+    @Test
+    public void shouldThrowAnExceptionIfFileNotFoundExceptionDuringEventStreamCreation() {
+        EventSpecification eventSpecification = mock(EventSpecification.class);
+
+
+        File eventFile = new File("/ThisShouldNeverExists/", "124.evt");
+
+        when(eventStoreFileResolver.getFileFor(eventSpecification)).thenReturn(eventFile);
+        try {
+            FileSystemEventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
+            eventStore.getMatching(eventSpecification);
+            failBecauseExceptionWasNotThrown(FileNotFoundException.class);
+        } catch (Exception e) {
+            assertThat(e).hasMessage("Unable to load event due to a FileNotFoundException");
+        }
     }
 }

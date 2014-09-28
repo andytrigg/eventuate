@@ -5,6 +5,8 @@ import org.joda.time.Duration;
 
 import java.io.Serializable;
 
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 public class BookLent implements Serializable {
     private final String bookId;
     private final String borrower;
@@ -32,5 +34,10 @@ public class BookLent implements Serializable {
 
     public Duration getExpectedDuration() {
         return expectedDuration;
+    }
+
+    @Override
+    public String toString() {
+        return reflectionToString(this);
     }
 }

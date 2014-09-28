@@ -9,7 +9,6 @@ import com.sloshydog.eventuate.filesystem.EventStoreFileResolver;
 import com.sloshydog.eventuate.filesystem.FileSystemEventMessageReader;
 import com.sloshydog.eventuate.filesystem.FileSystemEventMessageWriter;
 import com.sloshydog.eventuate.filesystem.FileSystemEventStore;
-import com.sloshydog.eventuate.filesystem.IOUtils;
 import com.sloshydog.eventuate.filesystem.PayloadSerializer;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
@@ -19,6 +18,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+
+import static com.sloshydog.eventuate.filesystem.IOUtils.closeQuietly;
 
 public final class BookLibrary {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookLibrary.class);
@@ -45,6 +46,6 @@ public final class BookLibrary {
         for (Event event : eventStream) {
             LOGGER.info(event.toString());
         }
-        IOUtils.closeQuietly(eventStream);
+        closeQuietly(eventStream);
     }
 }

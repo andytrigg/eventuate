@@ -43,7 +43,7 @@ public class FileSystemEventStore implements EventStore {
             DataOutputStream dataOutputStream = new DataOutputStream(out);
             eventMessageWriter.writeEventMessage(dataOutputStream, applicationEvent);
         } catch (IOException e) {
-            throw new EventStoreException("Unable to store given entity due to an IOException", e);
+            throw new EventStoreException("Unable to load event due to a FileNotFoundException", e);
         } finally {
             IOUtils.closeQuietly(out);
         }
@@ -56,7 +56,7 @@ public class FileSystemEventStore implements EventStore {
             File inputFile = eventStoreFileResolver.getFileFor(eventSpecification);
             return new FileSystemEventStream(eventMessageReader, new FileInputStream(inputFile));
         } catch (FileNotFoundException e) {
-            throw new EventStoreException("Unable to load event due to an IOException", e);
+            throw new EventStoreException("Unable to load event due to a FileNotFoundException", e);
         }
     }
 }

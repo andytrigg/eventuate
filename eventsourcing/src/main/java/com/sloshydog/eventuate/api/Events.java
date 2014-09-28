@@ -3,6 +3,7 @@ package com.sloshydog.eventuate.api;
 import org.joda.time.DateTime;
 
 import static com.sloshydog.eventuate.common.Preconditions.checkArgumentProvided;
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
 
 public final class Events {
 
@@ -50,6 +51,11 @@ public final class Events {
         @Override
         public E getPayload() {
             return payload;
+        }
+
+        @Override
+        public String toString() {
+            return reflectionToString(this);
         }
     }
 }

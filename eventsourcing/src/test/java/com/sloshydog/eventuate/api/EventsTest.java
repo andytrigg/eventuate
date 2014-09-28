@@ -74,10 +74,14 @@ public class EventsTest {
         assertThat(newDomainEvent.getTimeStamp()).isEqualTo(timeStamp);
     }
 
-
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowWhenTimeStampIsNull() {
         Events.<String>newDomainEvent("type", "123", null, "payload");
     }
 
+    @Test
+    public void shouldBeAbleToGetAToStringOfAnEvent() {
+        Event<String> newDomainEvent = Events.newDomainEvent("type", "123", new DateTime(1234l), "payload");
+        assertThat(newDomainEvent.toString()).endsWith("[aggregateId=123,aggregateType=type,payload=payload,timeStamp=1970-01-01T10:00:01.234+10:00]");
+    }
 }

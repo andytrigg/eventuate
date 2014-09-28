@@ -2,6 +2,8 @@ package com.sloshydog.eventuate.sample;
 
 import java.io.Serializable;
 
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 public class BookRegistered implements Serializable {
     private final String bookId;
     private final String title;
@@ -29,5 +31,10 @@ public class BookRegistered implements Serializable {
 
     public String getIsbn() {
         return isbn;
+    }
+
+    @Override
+    public String toString() {
+        return reflectionToString(this);
     }
 }
