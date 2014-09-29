@@ -12,7 +12,7 @@ public final class Events {
     }
 
     public static <E> Event<E> newDomainEvent(String aggregateType, String aggregateId, DateTime timeStamp, E payload) {
-        return new DomainEvent<E>(aggregateId, aggregateType, timeStamp, payload);
+        return new DomainEvent<>(aggregateId, aggregateType, timeStamp, payload);
     }
 
     private static class DomainEvent<E> implements Event<E> {

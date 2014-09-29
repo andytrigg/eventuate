@@ -1,6 +1,5 @@
 package com.sloshydog.eventuate.common;
 
-import com.sloshydog.eventuate.common.Preconditions;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,8 +41,7 @@ public class PreconditionsTest {
     @Test
     public void shouldThrowWhenObjectArgumentIsBlank() {
         try {
-            Integer someNumber = null;
-            Preconditions.<Integer>checkArgumentProvided(someNumber, "argument");
+            Preconditions.<Integer>checkArgumentProvided((Integer) null, "argument");
             failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
         } catch (IllegalArgumentException e) {
             assertThat(e).hasMessage("argument is null");

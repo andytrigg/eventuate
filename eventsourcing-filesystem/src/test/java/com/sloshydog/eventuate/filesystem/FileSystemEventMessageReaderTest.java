@@ -22,7 +22,7 @@ public class FileSystemEventMessageReaderTest {
     private PayloadSerializer payloadSerializer;
     @Mock
     private DataInput input;
-    private Object expectedPayload = new Object();
+    private final Object expectedPayload = new Object();
 
     @Before
     public void setUp() throws IOException {

@@ -14,9 +14,7 @@ import java.util.Queue;
 
 import static com.google.common.collect.Lists.newLinkedList;
 
-public class FileSystemEventStream implements EventStream {
-
-
+class FileSystemEventStream implements EventStream {
     private final FileSystemEventMessageReader eventMessageReader;
     private final Queue<Event> events = newLinkedList();
     private final DataInputStream input;
