@@ -7,6 +7,7 @@ import com.sloshydog.eventuate.api.EventStore;
 import com.sloshydog.eventuate.api.EventStoreException;
 import com.sloshydog.eventuate.api.EventStream;
 import com.sloshydog.eventuate.common.LogUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

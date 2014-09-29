@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import static com.sloshydog.eventuate.filesystem.IOUtils.closeQuietly;
+import static org.apache.commons.io.IOUtils.closeQuietly;
+
 
 public class PayloadSerializer {
 

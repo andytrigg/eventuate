@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
-import static com.sloshydog.eventuate.filesystem.IOUtils.closeQuietly;
+import static org.apache.commons.io.IOUtils.closeQuietly;
 
 public final class BookLibrary {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookLibrary.class);
