@@ -3,13 +3,9 @@ package com.sloshydog.eventuate.sample;
 import com.sloshydog.eventuate.api.Event;
 import com.sloshydog.eventuate.api.EventSpecification;
 import com.sloshydog.eventuate.api.EventStore;
+import com.sloshydog.eventuate.api.EventStoreFactory;
 import com.sloshydog.eventuate.api.EventStream;
 import com.sloshydog.eventuate.api.Events;
-import com.sloshydog.eventuate.filesystem.EventStoreFileResolver;
-import com.sloshydog.eventuate.filesystem.FileSystemEventMessageReader;
-import com.sloshydog.eventuate.filesystem.FileSystemEventMessageWriter;
-import com.sloshydog.eventuate.filesystem.FileSystemEventStore;
-import com.sloshydog.eventuate.filesystem.PayloadSerializer;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -31,8 +27,7 @@ public final class BookLibrary {
         final File baseDirectory = new File(System.getProperty("java.io.tmpdir"), "BookLibraryEvents");
         FileUtils.deleteDirectory(baseDirectory);
 
-        PayloadSerializer payloadSerializer = new PayloadSerializer();
-        EventStore eventStore = new FileSystemEventStore(new EventStoreFileResolver(baseDirectory), new FileSystemEventMessageWriter(payloadSerializer), new FileSystemEventMessageReader(payloadSerializer));
+        EventStore eventStore = EventStoreFactory.getInstance().getEventStore();
         eventStore.store(Events.newDomainEvent("book", "book1", new BookRegistered("book1", "The Day the Crayons Quit", "Oliver Jeffers", "0399255370")));
         eventStore.store(Events.newDomainEvent("book", "book2", new BookRegistered("book2", "Beautiful Oops!", "Barney Saltzberg", "076115728X")));
         eventStore.store(Events.newDomainEvent("book", "book3", new BookRegistered("book3", "The Most Magnificent Thing", "Ashley Spires", "1554537045")));
