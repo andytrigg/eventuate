@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import java.io.DataInput;
 import java.io.IOException;
 
-public class FileSystemEventMessageReader {
+class FileSystemEventMessageReader {
 
     private final PayloadSerializer payloadSerializer;
 

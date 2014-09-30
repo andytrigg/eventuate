@@ -5,7 +5,7 @@ import com.sloshydog.eventuate.api.Event;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class FileSystemEventMessageWriter {
+class FileSystemEventMessageWriter {
 
     private final PayloadSerializer payloadSerializer;
 

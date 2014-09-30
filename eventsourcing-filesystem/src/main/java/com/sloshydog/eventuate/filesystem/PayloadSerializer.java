@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 
 
-public class PayloadSerializer {
+class PayloadSerializer {
 
     public SerializedPayload serialize(Object payload) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

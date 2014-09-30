@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class EventStoreFileResolver {
+class EventStoreFileResolver {
 
     private static final String FILE_NAME_TEMPLATE = "%s.evt";
 

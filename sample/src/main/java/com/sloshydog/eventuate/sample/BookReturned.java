@@ -6,12 +6,12 @@ import java.io.Serializable;
 
 import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
 
-public class BookReturned implements Serializable {
+class BookReturned implements Serializable {
 
     private final String bookId;
     private final String by;
-    public final Duration after;
-    public final boolean late;
+    private final Duration after;
+    private final boolean late;
 
     public BookReturned(String bookId, String by, Duration after, boolean late) {
         this.bookId = bookId;

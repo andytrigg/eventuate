@@ -3,7 +3,7 @@ package com.sloshydog.eventuate.api;
 import java.util.Properties;
 import java.util.ServiceLoader;
 
-public class EventStoreFactory {
+public final class EventStoreFactory {
 
     private static EventStoreFactory service;
     private ServiceLoader<IEventStoreFactory> loader;

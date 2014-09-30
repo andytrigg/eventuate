@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
 
-public class BookLent implements Serializable {
+class BookLent implements Serializable {
     private final String bookId;
     private final String borrower;
     private final DateTime date;

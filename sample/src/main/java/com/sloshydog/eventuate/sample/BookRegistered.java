@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
 
-public class BookRegistered implements Serializable {
+class BookRegistered implements Serializable {
     private final String bookId;
     private final String title;
     private final String author;
