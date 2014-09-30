@@ -6,8 +6,8 @@ import java.util.ServiceLoader;
 public final class EventStoreFactory {
 
     private static EventStoreFactory service;
-    private ServiceLoader<IEventStoreFactory> loader;
-    private Properties configurationProperties = new Properties();
+    private final ServiceLoader<IEventStoreFactory> loader;
+    private final Properties configurationProperties = new Properties();
 
     private EventStoreFactory() {
         loader = ServiceLoader.load(IEventStoreFactory.class);
