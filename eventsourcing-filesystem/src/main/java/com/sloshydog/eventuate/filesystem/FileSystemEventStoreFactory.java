@@ -7,6 +7,7 @@ import java.io.File;
 
 public class FileSystemEventStoreFactory implements IEventStoreFactory {
 
+
     @Override
     public EventStore getEventStore() {
         final File baseDirectory = new File(System.getProperty("java.io.tmpdir"), "BookLibraryEvents");
