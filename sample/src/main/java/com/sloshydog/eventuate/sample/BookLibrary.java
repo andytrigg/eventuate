@@ -27,7 +27,7 @@ public final class BookLibrary {
         final File baseDirectory = new File(System.getProperty("java.io.tmpdir"), "BookLibraryEvents");
         FileUtils.deleteDirectory(baseDirectory);
 
-        EventStore eventStore = EventStoreFactory.getInstance().getEventStore();
+        EventStore eventStore = EventStoreFactory.getInstance().withProperty("eventstore.dir", baseDirectory.getAbsolutePath()).getEventStore();
         eventStore.store(Events.newDomainEvent("book", "book1", new BookRegistered("book1", "The Day the Crayons Quit", "Oliver Jeffers", "0399255370")));
         eventStore.store(Events.newDomainEvent("book", "book2", new BookRegistered("book2", "Beautiful Oops!", "Barney Saltzberg", "076115728X")));
         eventStore.store(Events.newDomainEvent("book", "book3", new BookRegistered("book3", "The Most Magnificent Thing", "Ashley Spires", "1554537045")));

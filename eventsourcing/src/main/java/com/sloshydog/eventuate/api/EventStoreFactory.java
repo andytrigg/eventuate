@@ -1,10 +1,13 @@
 package com.sloshydog.eventuate.api;
 
+import java.util.Properties;
 import java.util.ServiceLoader;
 
 public class EventStoreFactory {
+
     private static EventStoreFactory service;
     private ServiceLoader<IEventStoreFactory> loader;
+    private Properties configurationProperties = new Properties();
 
     private EventStoreFactory() {
         loader = ServiceLoader.load(IEventStoreFactory.class);
@@ -17,7 +20,13 @@ public class EventStoreFactory {
         return service;
     }
 
-    public  EventStore getEventStore() {
-        return loader.iterator().next().getEventStore();
+    public EventStoreFactory withProperty(String key, String value) {
+        configurationProperties.put(key, value);
+        return this;
+    }
+
+    public EventStore getEventStore() {
+
+        return loader.iterator().next().getEventStore(configurationProperties);
     }
 }

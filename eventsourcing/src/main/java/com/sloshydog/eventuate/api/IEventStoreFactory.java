@@ -1,5 +1,8 @@
 package com.sloshydog.eventuate.api;
 
+import java.util.Map;
+
 public interface IEventStoreFactory {
-    EventStore getEventStore();
+
+    EventStore getEventStore(Map<Object, Object> configuration);
 }
