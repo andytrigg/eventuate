@@ -22,7 +22,7 @@ public class LogUtilsTest {
 
         LogUtils.debug(logger, "format", "argument");
 
-        verify(logger).debug("format", new String[]{"argument"});
+        verify(logger).debug("format", new Object[]{"argument"});
     }
 
     @Test
@@ -31,6 +31,6 @@ public class LogUtilsTest {
 
         LogUtils.debug(logger, "format", "argument");
 
-        verify(logger, never()).debug("format", new String[]{"argument"});
+        verify(logger, never()).debug("format", new Object[]{"argument"});
     }
 }

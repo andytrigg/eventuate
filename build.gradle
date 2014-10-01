@@ -1,0 +1,36 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'checkstyle'
+
+    buildscript {
+      repositories {
+        // Use 'gradle install' to install latest
+        mavenCentral()
+        mavenLocal()
+      }
+
+    }
+
+    repositories {
+       mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.+'
+        testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+        testCompile group: 'org.assertj', name: 'assertj-core', version: '1.6.1'
+    }
+
+    version = '1.0'
+
+    jar {
+        manifest.attributes provider: 'gradle'
+    }
+
+    checkstyle {
+        configFile = new File(rootDir, "config/checkstyle/checkstyle.xml")
+     }
+}
+
+

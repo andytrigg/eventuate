@@ -81,7 +81,7 @@ public class EventsTest {
 
     @Test
     public void shouldBeAbleToGetAToStringOfAnEvent() {
-        Event<String> newDomainEvent = Events.newDomainEvent("type", "123", new DateTime(1234l), "payload");
+        Event<String> newDomainEvent = Events.newDomainEvent("type", "123", new DateTime(1234L), "payload");
         assertThat(newDomainEvent.toString()).contains("[aggregateId=123,aggregateType=type,payload=payload,timeStamp=1970-01-01");
     }
 }

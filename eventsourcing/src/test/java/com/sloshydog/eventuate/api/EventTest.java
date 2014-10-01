@@ -12,5 +12,4 @@ public class EventTest {
     public void shouldBeSerializable() {
         assertThat(Serializable.class).isAssignableFrom(Event.class);
     }
-
 }

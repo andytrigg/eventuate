@@ -15,6 +15,4 @@ public class EventStreamTest {
     public void shouldBeAnIterator() {
         Assertions.assertThat(Iterable.class).isAssignableFrom(EventStream.class);
     }
-
-
 }

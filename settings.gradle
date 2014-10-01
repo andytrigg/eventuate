@@ -1,0 +1,1 @@
+include "eventsourcing", "eventsourcing-filesystem", "eventsourcing-inmemory", "sample"
