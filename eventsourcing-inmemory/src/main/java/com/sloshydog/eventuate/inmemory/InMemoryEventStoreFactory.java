@@ -1,7 +1,7 @@
 package com.sloshydog.eventuate.inmemory;
 
 import com.sloshydog.eventuate.api.EventStore;
-import com.sloshydog.eventuate.api.IEventStoreFactory;
+import com.sloshydog.eventuate.internal.IEventStoreFactory;
 
 import java.util.Map;
 

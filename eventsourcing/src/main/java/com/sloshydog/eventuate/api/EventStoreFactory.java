@@ -1,5 +1,7 @@
 package com.sloshydog.eventuate.api;
 
+import com.sloshydog.eventuate.internal.IEventStoreFactory;
+
 import java.util.Properties;
 import java.util.ServiceLoader;
 

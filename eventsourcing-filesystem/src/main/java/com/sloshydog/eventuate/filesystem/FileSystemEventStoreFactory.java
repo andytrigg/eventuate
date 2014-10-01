@@ -1,7 +1,7 @@
 package com.sloshydog.eventuate.filesystem;
 
 import com.sloshydog.eventuate.api.EventStore;
-import com.sloshydog.eventuate.api.IEventStoreFactory;
+import com.sloshydog.eventuate.internal.IEventStoreFactory;
 
 import java.io.File;
 import java.util.Map;

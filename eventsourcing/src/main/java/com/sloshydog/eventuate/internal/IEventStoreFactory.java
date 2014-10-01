@@ -1,4 +1,6 @@
-package com.sloshydog.eventuate.api;
+package com.sloshydog.eventuate.internal;
+
+import com.sloshydog.eventuate.api.EventStore;
 
 import java.util.Map;
 
