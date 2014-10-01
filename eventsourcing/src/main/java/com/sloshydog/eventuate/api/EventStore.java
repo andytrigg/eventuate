@@ -14,9 +14,10 @@ public interface EventStore {
     void store(Event applicationEvent);
 
     /**
-     * Retrieve an EventStream for the Events in the event store that match the event specification provided.
-     * @param eventSpecification
-     * @return
+     * Retrieve an EventStream for the Events in the store that match the event specification provided.
+     * @param eventSpecification The event specification that defines the criteria of the events to return in the event
+     *                           stream
+     * @return The stream of events that match the event specification
      */
     EventStream getMatching(EventSpecification eventSpecification);
 }
