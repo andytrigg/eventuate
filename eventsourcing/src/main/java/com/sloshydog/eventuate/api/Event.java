@@ -22,18 +22,18 @@ public interface Event<T> extends Serializable {
     String getAggregateIdentifier();
 
     /**
-     * Returns the time stamp of the occurrence of this Event. This is the time that this Event was created.
-     *
-     * @return the time stamp for this Event
-     */
-    DateTime getTimeStamp();
-
-    /**
      * Returns the type of the Aggregate that generated this Event.
      *
      * @return the type of the Aggregate that generated this Event
      */
     String getAggregateType();
+
+    /**
+     * Returns the time stamp of the occurrence of this Event. This is the time that this Event was created.
+     *
+     * @return the time stamp for this Event
+     */
+    DateTime getTimeStamp();
 
     /**
      * Returns the payload of this Event. The payload is the application-specific information.
