@@ -18,7 +18,7 @@ public class EventStoreFileResolverTest {
         EventSpecification eventSpecification = new EventSpecification("type", "123");
 
         File baseDirectory = new File(System.getProperty("java.io.tmpdir"));
-        File actualFile = new EventStoreFileResolver(baseDirectory).getFileFor(eventSpecification);
+        File actualFile = new EventStoreFileResolver(baseDirectory).getFileFor(eventSpecification.getAggregateType(), eventSpecification.getAggregateIdentifier());
 
         Assertions.assertThat(actualFile).isEqualTo(new File(baseDirectory, "type/123.evt"));
     }

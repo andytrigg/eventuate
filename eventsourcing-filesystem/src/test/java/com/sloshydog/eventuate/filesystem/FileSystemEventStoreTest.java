@@ -49,14 +49,14 @@ public class FileSystemEventStoreTest {
     @Test
     public void shouldBeAbleToStoreAnEventToTheFileSystem() throws IOException {
         Event newEvent = mock(Event.class);
-        when(newEvent.getAggregateIdentifier()).thenReturn("124");
+        when(newEvent.getAggregateIdentifier()).thenReturn("123");
         when(newEvent.getAggregateType()).thenReturn("type");
 
         File eventFileDirectory = new File(System.getProperty("java.io.tmpdir"), "/type");
         eventFileDirectory.mkdirs();
-        File eventFile = new File(eventFileDirectory, "124.evt");
+        File eventFile = new File(eventFileDirectory, "123.evt");
 
-        when(eventStoreFileResolver.getFileFor(new EventSpecification("type", "124"))).thenReturn(eventFile);
+        when(eventStoreFileResolver.getFileFor("type", "123")).thenReturn(eventFile);
 
         EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
         eventStore.store(newEvent);
@@ -76,7 +76,7 @@ public class FileSystemEventStoreTest {
         eventFileDirectory.mkdirs();
         File eventFile = new File(eventFileDirectory, "124.evt");
 
-        when(eventStoreFileResolver.getFileFor(new EventSpecification("type", "124"))).thenReturn(eventFile);
+        when(eventStoreFileResolver.getFileFor("type", "124")).thenReturn(eventFile);
         doThrow(new IOException("bang")).when(eventMessageWriter).writeEventMessage(any(DataOutput.class), eq(newEvent));
 
         EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
@@ -97,7 +97,7 @@ public class FileSystemEventStoreTest {
         File eventFile = new File(eventFileDirectory, "124.evt");
         eventFile.createNewFile();
 
-        when(eventStoreFileResolver.getFileFor(eventSpecification)).thenReturn(eventFile);
+        when(eventStoreFileResolver.getFileFor(eventSpecification.getAggregateType(), eventSpecification.getAggregateIdentifier())).thenReturn(eventFile);
 
         when(eventMessageReader.readEventMessage(any(DataInput.class))).thenThrow(new EOFException());
         EventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
@@ -112,7 +112,7 @@ public class FileSystemEventStoreTest {
 
         File eventFile = new File("/ThisShouldNeverExists/", "124.evt");
 
-        when(eventStoreFileResolver.getFileFor(eventSpecification)).thenReturn(eventFile);
+        when(eventStoreFileResolver.getFileFor(eventSpecification.getAggregateType(), eventSpecification.getAggregateIdentifier())).thenReturn(eventFile);
         try {
             FileSystemEventStore eventStore = new FileSystemEventStore(eventStoreFileResolver, eventMessageWriter, eventMessageReader);
             eventStore.getMatching(eventSpecification);

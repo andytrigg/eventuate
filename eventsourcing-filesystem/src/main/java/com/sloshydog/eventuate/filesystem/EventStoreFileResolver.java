@@ -1,7 +1,6 @@
 package com.sloshydog.eventuate.filesystem;
 
 import com.google.common.base.Preconditions;
-import com.sloshydog.eventuate.api.EventSpecification;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -17,12 +16,12 @@ class EventStoreFileResolver {
         this.baseDirectory = Preconditions.checkNotNull(baseDirectory);
     }
 
-    public File getFileFor(EventSpecification eventSpecification) {
-        return new File(getBaseDirFor(eventSpecification), getFileNameFor(eventSpecification));
+    public File getFileFor(String aggregateType, String aggregateIdentifier) {
+        return new File(getBaseDirFor(aggregateType), getFileNameFor(aggregateIdentifier));
     }
 
-    private String getFileNameFor(EventSpecification eventSpecification) {
-        return String.format(FILE_NAME_TEMPLATE, urlEncode(eventSpecification.getAggregateIdentifier()));
+    private String getFileNameFor(String aggregateIdentifier) {
+        return String.format(FILE_NAME_TEMPLATE, urlEncode(aggregateIdentifier));
     }
 
     private static String urlEncode(Object id) {
@@ -33,8 +32,8 @@ class EventStoreFileResolver {
         }
     }
 
-    private File getBaseDirFor(EventSpecification eventSpecification) {
-        File typeSpecificDir = new File(baseDirectory, eventSpecification.getAggregateType());
+    private File getBaseDirFor(String aggregateType) {
+        File typeSpecificDir = new File(baseDirectory, aggregateType);
         if (!typeSpecificDir.exists() && !typeSpecificDir.mkdirs()) {
             throw new RuntimeException("Should be an IO exception");
         }

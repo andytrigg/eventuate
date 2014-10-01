@@ -2,11 +2,11 @@ package com.sloshydog.eventuate.filesystem;
 
 import com.sloshydog.eventuate.api.Event;
 import com.sloshydog.eventuate.api.EventSpecification;
-import com.sloshydog.eventuate.api.EventSpecifications;
 import com.sloshydog.eventuate.api.EventStore;
 import com.sloshydog.eventuate.api.EventStoreException;
 import com.sloshydog.eventuate.api.EventStream;
 import com.sloshydog.eventuate.common.LogUtils;
+import com.sloshydog.eventuate.common.Preconditions;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,12 +35,12 @@ public class FileSystemEventStore implements EventStore {
 
     @Override
     public void store(Event applicationEvent) {
+        Preconditions.checkArgumentProvided(applicationEvent, "applicationEvent");
         LogUtils.debug(LOGGER, "store the event:%s", applicationEvent);
 
         OutputStream out = null;
         try {
-            EventSpecification eventSpecification = EventSpecifications.specificationFrom(applicationEvent);
-            out = new FileOutputStream(eventStoreFileResolver.getFileFor(eventSpecification), true);
+            out = new FileOutputStream(eventStoreFileResolver.getFileFor(applicationEvent.getAggregateType(), applicationEvent.getAggregateIdentifier()), true);
             DataOutputStream dataOutputStream = new DataOutputStream(out);
             eventMessageWriter.writeEventMessage(dataOutputStream, applicationEvent);
         } catch (IOException e) {
@@ -54,7 +54,7 @@ public class FileSystemEventStore implements EventStore {
     @Override
     public EventStream getMatching(EventSpecification eventSpecification) {
         try {
-            File inputFile = eventStoreFileResolver.getFileFor(eventSpecification);
+            File inputFile = eventStoreFileResolver.getFileFor(eventSpecification.getAggregateType(), eventSpecification.getAggregateIdentifier());
             return new FileSystemEventStream(eventMessageReader, new FileInputStream(inputFile));
         } catch (FileNotFoundException e) {
             throw new EventStoreException("Unable to load event due to a FileNotFoundException", e);
