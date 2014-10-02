@@ -19,10 +19,7 @@ public class InMemoryEventStoreTest {
 
     @Test
     public void shouldReturnAnEmptyEventStreamWhenNoEventHasBeenStored() {
-        Event newEvent = mock(Event.class);
-        EventSpecification eventSpecification = mock(EventSpecification.class);
-
-        when(eventSpecification.matches(newEvent)).thenReturn(true);
+        EventSpecification eventSpecification = new EventSpecification("type", "1234");
 
         EventStore eventStore = new InMemoryEventStore();
         EventStream eventStream = eventStore.getMatching(eventSpecification);
@@ -31,10 +28,8 @@ public class InMemoryEventStoreTest {
 
     @Test
     public void shouldBeAbleToStoreASingleEventInMemory() {
-        Event newEvent = mock(Event.class);
-        EventSpecification eventSpecification = mock(EventSpecification.class);
-
-        when(eventSpecification.matches(newEvent)).thenReturn(true);
+        Event newEvent = createMockEvent("type", "1234");
+        EventSpecification eventSpecification = new EventSpecification("type", "1234");
 
         EventStore eventStore = new InMemoryEventStore();
         eventStore.store(newEvent);
@@ -45,10 +40,9 @@ public class InMemoryEventStoreTest {
 
     @Test
     public void shouldNotReturnAnEventStreamContainingEventsThatDoNotMatchTheSpecification() {
-        Event newEvent = mock(Event.class);
-        EventSpecification eventSpecification = mock(EventSpecification.class);
+        Event newEvent = createMockEvent("type", "1234");
 
-        when(eventSpecification.matches(newEvent)).thenReturn(false);
+        EventSpecification eventSpecification = new EventSpecification("type", "1235");
 
         InMemoryEventStore eventStore = new InMemoryEventStore();
         eventStore.store(newEvent);
@@ -59,14 +53,10 @@ public class InMemoryEventStoreTest {
 
     @Test
     public void shouldOnlyReturnEventsInTheEventStreamThatMatchTheSpecification() {
-        Event eventOne = mock(Event.class);
-        Event eventTwo = mock(Event.class);
-        Event eventThree = mock(Event.class);
-        EventSpecification eventSpecification = mock(EventSpecification.class);
-
-        when(eventSpecification.matches(eventOne)).thenReturn(true);
-        when(eventSpecification.matches(eventTwo)).thenReturn(false);
-        when(eventSpecification.matches(eventThree)).thenReturn(true);
+        Event eventOne = createMockEvent("type", "1234");
+        Event eventTwo = createMockEvent("type", "1235");
+        Event eventThree = createMockEvent("type", "1234");
+        EventSpecification eventSpecification = new EventSpecification("type", "1234");
 
         InMemoryEventStore eventStore = new InMemoryEventStore();
         eventStore.store(eventOne);
@@ -75,5 +65,12 @@ public class InMemoryEventStoreTest {
 
         EventStream eventStream = eventStore.getMatching(eventSpecification);
         assertThat(eventStream).containsExactly(eventOne, eventThree);
+    }
+
+    private Event createMockEvent(String type, String value) {
+        Event newEvent = mock(Event.class);
+        when(newEvent.getAggregateType()).thenReturn(type);
+        when(newEvent.getAggregateIdentifier()).thenReturn(value);
+        return newEvent;
     }
 }
