@@ -19,6 +19,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * FileSystemEventStore provides a file system based implementation of an {@link com.sloshydog.eventuate.api.EventStore}. Events are read as {@link com.sloshydog.eventuate.api.EventStream}.
+ *
+ * The location of the files are determined by the EventStoreFileResolver injected into the implementation.
+ *
+ * @since 0.1
+ */
 public class FileSystemEventStore implements EventStore {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemEventStore.class);
@@ -33,6 +40,10 @@ public class FileSystemEventStore implements EventStore {
         this.eventMessageReader = fileSystemEventMessageReader;
     }
 
+    /**
+     * Store a single Event in the event store.
+     * @param applicationEvent the event to be stored
+     */
     @Override
     public void store(Event applicationEvent) {
         Preconditions.checkArgumentProvided(applicationEvent, "applicationEvent");
@@ -51,6 +62,12 @@ public class FileSystemEventStore implements EventStore {
 
     }
 
+    /**
+       * Retrieve an EventStream for the Events in the store that match the event specification provided.
+       * @param eventSpecification The event specification that defines the criteria of the events to return in the event
+       *                           stream
+       * @return The stream of events that match the event specification
+       */
     @Override
     public EventStream getMatching(EventSpecification eventSpecification) {
         try {
