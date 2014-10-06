@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import static org.apache.commons.io.IOUtils.closeQuietly;
 
-final class BookLibrary {
+public final class BookLibrary {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookLibrary.class);
 
     private BookLibrary() {

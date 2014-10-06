@@ -14,6 +14,14 @@ import java.util.Queue;
 
 import static com.google.common.collect.Lists.newLinkedList;
 
+/**
+ * The EventStream represents a stream of historical domain events. The order of events in this stream are in actual
+ * chronological order in which the events happened.
+ *
+ * This implementation is back by the file system through the use of a {@link FileSystemEventMessageReader}
+ *
+ * @since 1.0
+ */
 class FileSystemEventStream implements EventStream {
     private final FileSystemEventMessageReader eventMessageReader;
     private final Queue<Event> events = newLinkedList();
