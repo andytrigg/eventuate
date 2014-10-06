@@ -11,8 +11,21 @@ import java.io.ObjectOutputStream;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 
 
+/**
+ * Describes how a payload associated to an event is serialized and deserialized. This implementation uses an
+ * ObjectOutputStream for serializing objects and an ObjectInputStream for deserializing objects.
+ *
+ * @since 0.1
+ */
 class PayloadSerializer {
 
+    /**
+     * Serializes a payload using an ObjectOutputStream. The result is returned as a {@link com.sloshydog.eventuate.filesystem.SerializedPayload}.
+     *
+     * @param payload the object to be serialized.
+     * @return The serialized payload
+     * @throws EventStoreException if the payload object can not be serialized
+     */
     public SerializedPayload serialize(Object payload) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
@@ -28,6 +41,14 @@ class PayloadSerializer {
         return new SimpleSerializedPayload(byteArrayOutputStream.toByteArray());
     }
 
+    /**
+     * Deserializes a {@link com.sloshydog.eventuate.filesystem.SerializedPayload} to the original serialized payload.
+     *
+     * @param serializedPayload the serialized payload to be deserialized.
+     * @return The deserialized payload object
+     * @throws EventStoreException if the {@link com.sloshydog.eventuate.filesystem.SerializedPayload} can not be
+     *                             deserialized
+     */
     public Object deserialize(SerializedPayload serializedPayload) {
         ObjectInputStream inputStream = null;
         try {
