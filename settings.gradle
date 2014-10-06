@@ -1,1 +1,2 @@
-include "eventsourcing", "eventsourcing-filesystem", "eventsourcing-inmemory", "sample"
+include "eventsourcing", "eventsourcing-filesystem", "eventsourcing-inmemory", "eventsourcing-jdbc", "sample"
+
