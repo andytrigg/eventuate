@@ -41,8 +41,7 @@ public class FileSystemEventStore implements EventStore {
     }
 
     /**
-     * Store a single Event in the event store.
-     * @param applicationEvent the event to be stored
+     * {@inheritDoc}
      */
     @Override
     public void store(Event applicationEvent) {
@@ -63,11 +62,8 @@ public class FileSystemEventStore implements EventStore {
     }
 
     /**
-       * Retrieve an EventStream for the Events in the store that match the event specification provided.
-       * @param eventSpecification The event specification that defines the criteria of the events to return in the event
-       *                           stream
-       * @return The stream of events that match the event specification
-       */
+     * {@inheritDoc}
+     */
     @Override
     public EventStream getMatching(EventSpecification eventSpecification) {
         try {

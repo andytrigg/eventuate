@@ -28,9 +28,9 @@ public class InMemoryEventStore implements EventStore {
 
     private final Map<EventSpecification, List<Event>> eventsByType = newHashMap();
 
+
     /**
-     * Store a single Event in the event store.
-     * @param applicationEvent the event to be stored
+     * {@inheritDoc}
      */
     @Override
     public void store(Event applicationEvent) {
@@ -41,10 +41,7 @@ public class InMemoryEventStore implements EventStore {
     }
 
     /**
-     * Retrieve an EventStream for the Events in the store that match the event specification provided.
-     * @param eventSpecification The event specification that defines the criteria of the events to return in the event
-     *                           stream
-     * @return The stream of events that match the event specification
+     * {@inheritDoc}
      */
     @Override
     public EventStream getMatching(final EventSpecification eventSpecification) {
